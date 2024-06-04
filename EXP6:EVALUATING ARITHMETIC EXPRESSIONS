@@ -1,0 +1,73 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 20
+struct node
+{
+int element;
+struct node* next;
+}*list=NULL;
+typedef struct node stack;
+void push(int e);
+int pop();
+int main()
+{
+int i,a,b,c,e;
+char exp[MAX];
+printf("Enter the postfix expressions:");
+gets(exp);
+for(i=0;i<strlen(exp);i++)
+{
+if(exp[i]=='+'||exp[i]=='-'||exp[i]=='*'||exp[i]=='/')
+{
+b=pop();
+a=pop();
+switch(exp[i])
+{
+case'+':
+c = a + b;
+push(e);
+break;
+case'-':
+c = a - b;
+push(e);
+break;
+case'*':
+c= a * b;
+push(e);
+break;
+case'/':
+c= a / b;
+push(e);
+break;
+}
+}
+else
+{
+printf("Enter the value of %c",exp[i]);
+scanf("%d",&e);
+push(e);
+}
+}
+printf("The result is %d",pop());
+retrn 0;
+}
+void push(int e)
+{
+stack *newnode = malloc(sizeof(stack));
+newnode->element = e;
+if(list==NULL)
+newnode->next = NULL;
+else
+newnode->next = list;
+list=newnode;
+}
+int pop()
+{
+int e;
+stack *tempnode e;
+tempnode  = list;
+list = list->next;
+e = tempnode->element;
+free(tempnode);
+return e;
+}
