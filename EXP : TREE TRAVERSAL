@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+
+struct Node* newNode(int data) {
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    temp->data = data;
+    temp->left = temp->right = NULL;
+    return temp;
+}
+
+
+struct Node* insert(struct Node* root, int data) {
+    if (root == NULL) {
+        return newNode(data);
+    }
+
+    if (data < root->data) {
+        root->left = insert(root->left, data);
+    } else {
+        root->right = insert(root->right, data);
+    }
+
+    return root;
+}
+
+
+void inorderTraversal(struct Node* root) {
+    if (root != NULL) {
+        inorderTraversal(root->left);
+        printf("%d ", root->data);
+        inorderTraversal(root->right);
+    }
+}
+
+
+void preorderTraversal(struct Node* root) {
+    if (root != NULL) {
+        printf("%d ", root->data);
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
+    }
+}
+
+
+void postorderTraversal(struct Node* root) {
+    if (root != NULL) {
+        postorderTraversal(root->left);
+        postorderTraversal(root->right);
+        printf("%d ", root->data);
+    }
+}
+
+int main() {
+    struct Node* root = NULL;
+    int numElements, choice;
+
+    printf("Enter the number of elements: ");
+    scanf("%d", &numElements);
+
+    printf("Enter the elements:\n");
+    for (int i = 0; i < numElements; i++) {
+        int data;
+        scanf("%d", &data);
+        root = insert(root, data);
+    }
+
+    printf("Select the traversal type:\n");
+    printf("1. Inorder\n");
+    printf("2. Preorder\n");
+    printf("3. Postorder\n");
+    scanf("%d", &choice);
+
+    switch (choice) {
+        case 1:
+            printf("Inorder traversal: ");
+            inorderTraversal(root);
+            break;
+        case 2:
+            printf("Preorder traversal: ");
+            preorderTraversal(root);
+            break;
+        case 3:
+            printf("Postorder traversal: ");
+            postorderTraversal(root);
+            break;
+        default:
+            printf("Invalid choice.\n");
+    }
+
+    printf("\n");
+
+return 0;
+}
